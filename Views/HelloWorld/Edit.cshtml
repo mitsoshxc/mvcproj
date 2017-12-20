@@ -1,0 +1,25 @@
+@model mvcproj.Models.Users
+
+@{
+    ViewData["Title"] = "Edit " +  Model.name;
+}
+
+
+<form asp-action="Edit" method="POST" role="form">
+    <legend>Edit User  @Model.name</legend>
+
+    <div class="form-group">
+        <label>New Password</label>
+        <input type="password" class="form-control" name="_pass">
+        <input type="hidden" name="_id" value="@Model.id">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a asp-action="Index">
+        
+        <button type="button" class="btn btn-primary">
+            To Home
+        </button>
+        
+    </a>
+</form>

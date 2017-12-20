@@ -1,0 +1,49 @@
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@model IEnumerable<mvcproj.Models.Users>
+
+@{
+    ViewData["Title"] = "Home of  " + HttpContextAccessor.HttpContext.Session.GetSession<string>("User");
+}
+<div class="table-responsive">
+    <h2>Hello @ViewData["User"]</h2>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>User Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var _user in Model)
+            {
+                <tr>
+                    <td>@_user.name</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@_user.id">
+                            <button type="submit" class="btn btn-primary" style="width: 100px;">
+                                Edit
+                            </button>
+                        </a>
+                    </td>
+                    <td>
+                        @if (_user.id != HttpContextAccessor.HttpContext.Session.GetSession<int>("UserId"))
+                        {
+                            <a asp-action="Delete" asp-route-id="@_user.id">
+                                <button type="submit" class="btn btn-danger" style="width: 100px;">
+                                    Delete
+                                </button>
+                            </a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-action="Add">
+        
+        <button type="button" class="btn btn-primary">
+            Add User
+        </button>
+    </a>
+</div>
